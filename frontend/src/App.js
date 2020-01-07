@@ -1,21 +1,50 @@
 import React from 'react';
-import logo from './logo.svg';
+import axios from 'axios';
 import './App.css';
 
 class App extends React.Component {
-    state = { restaurants: [] }
+    constructor(props) {
+        super(props);
+        this.state = {
+            restaurants: []
+        };
 
-    componentDidMount() {
-        fetch('/yelp').then(res => res.json()).then(restaurants => {
-            console.log(restaurants);
-            this.setState({ restaurants });
+        this.handleButtonPressed = this.handleButtonPressed.bind(this);
+    }
+
+    handleButtonPressed(e) {
+        e.preventDefault();
+
+        // Create reference to this before API callback
+        let component = this;
+
+        const form = new FormData();
+        form.append('location', 'san francisco');
+
+        // fetch('/yelp', {
+        //     method: 'POST'
+        // })
+        //     .then(res => res.json())
+        //     .then(restaurants => {
+        //     console.log(restaurants);
+        //     component.setState({ restaurants });
+        // });
+        axios.get('/yelp', {
+            params: {
+                'term': 'mexican',
+                'location': 'harvard'
+            }
+        }).then(restaurants => {
+            component.setState({ restaurants })
+            console.log(component.state.restaurants.data);
         });
     }
 
     render() {
         return (
             <div>
-                <div>Does this render?</div>
+                <div>FoodSpace</div>
+                <button onClick={this.handleButtonPressed}>Click this</button>
             </div>
         );
     }
