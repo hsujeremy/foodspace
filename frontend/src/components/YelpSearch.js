@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import './App.css';
+import '../styles.css';
 
-class App extends React.Component {
+class YelpSearch extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,34 +20,29 @@ class App extends React.Component {
 
         const form = new FormData();
         form.append('location', 'san francisco');
-
-        // fetch('/yelp', {
-        //     method: 'POST'
-        // })
-        //     .then(res => res.json())
-        //     .then(restaurants => {
-        //     console.log(restaurants);
-        //     component.setState({ restaurants });
-        // });
         axios.get('/yelp', {
             params: {
                 'term': 'mexican',
                 'location': 'harvard'
             }
-        }).then(restaurants => {
-            component.setState({ restaurants })
-            console.log(component.state.restaurants.data);
+        }).then(response => {
+            component.setState({ restaurants: response.data });
         });
     }
 
     render() {
         return (
             <div>
-                <div>FoodSpace</div>
+                <div>Search for Restaurant</div>
                 <button onClick={this.handleButtonPressed}>Click this</button>
+                <ol>
+                    {this.state.restaurants.map(restaurant =>
+                        <li key={restaurant.id}>{restaurant.name}, {restaurant.rating}, {restaurant.price}</li>
+                    )}
+                </ol>
             </div>
         );
     }
 }
 
-export default App;
+export default YelpSearch;
