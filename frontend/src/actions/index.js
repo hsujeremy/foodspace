@@ -12,3 +12,14 @@ export const searchYelp = params => async dispatch => {
         payload: response.data
     });
 };
+
+export const selectPlace = place => async dispatch => {
+    const response = await axios.get('/yelp-business', {
+        params: { id: place.id }
+    });
+
+    dispatch({
+        type: 'PLACE_SELECTED',
+        payload: response.data
+    })
+};
