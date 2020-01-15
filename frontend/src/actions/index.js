@@ -23,3 +23,11 @@ export const selectPlace = place => async dispatch => {
         payload: response.data
     })
 };
+
+// times is a plain JS object containing a start and end time (24-hour clock)
+export const selectTime = times => {
+    return {
+        type: 'TIME_SELECTED',
+        payload: times
+    };
+}

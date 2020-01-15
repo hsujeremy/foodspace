@@ -5,10 +5,6 @@ import { selectPlace } from '../actions';
 // Displays each restaurant search result
 // Gives user the option to select (perhaps passes the hours of the day for time?) - figure out later
 class SearchResult extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div>

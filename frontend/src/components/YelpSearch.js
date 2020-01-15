@@ -3,6 +3,8 @@ import '../styles.css';
 import { searchYelp } from "../actions";
 import { connect } from 'react-redux';
 import SearchResult from './SearchResult';
+import TimeSelector from './TimeSelector.js';
+import Confirmation from './Confirmation';
 
 class YelpSearch extends React.Component {
     constructor(props) {
@@ -49,27 +51,57 @@ class YelpSearch extends React.Component {
         console.log('Please enter input for location');
     }
 
-    render() {
+    // Renders the Yelp search form
+    renderForm() {
         return (
             <div>
-                <div>Search for a place</div>
-                <label className='searchInput'>Term: <input name='term' type='text' value={this.state.term} onChange={this.handleChange} /></label>
-                <label className='searchInput'>Location: <input name='location' type='text' value={this.state.location} onChange={this.handleChange} /></label>
-                <label className='searchInput'>Price: <input name='price' type='text' value={this.state.price} onChange={this.handleChange} /></label>
+                <label className='userInput'>Term: <input name='term' type='text' value={this.state.term} onChange={this.handleChange} /></label>
+                <label className='userInput'>Location: <input name='location' type='text' value={this.state.location} onChange={this.handleChange} /></label>
+                <label className='userInput'>Price: <input name='price' type='text' value={this.state.price} onChange={this.handleChange} /></label>
                 <button onClick={this.handleSubmit}>Click this</button>
-                <ol>
-                    {this.props.results.map(restaurant =>
-                        <li key={restaurant.id}><SearchResult place={restaurant}/></li>
-                    )}
-                </ol>
+            </div>
+        );
+    }
+
+    render() {
+        // TODO: Refractor everything to a giant switch statement
+        // User has not selected a place yet
+        if (!this.props.selectedPlace) {
+            return (
+                <div>
+                    <div>Search for a place</div>
+                    {this.renderForm()}
+                    <ol>
+                        {this.props.results.map(restaurant =>
+                            <li key={restaurant.id}><SearchResult place={restaurant}/></li>
+                        )}
+                    </ol>
+                </div>
+            );
+        } else if (this.props.selectedTime) {
+            return (
+                <div>
+                    <Confirmation />
+                </div>
+            );
+        }
+        return (
+            <div>
+                <TimeSelector />
             </div>
         );
     }
 }
 
 const mapStateToProps = state => {
-    console.log(state);
-    return { results: state.yelpSearchResults, selectedPlace: state.selectedPlace };
-}
+    if (state.selectedPlace) {
+        console.log(state.selectedPlace.hours[0].open[0].start);
+    }
+    return {
+        results: state.yelpSearchResults,
+        selectedPlace: state.selectedPlace,
+        selectedTime: state.selectedTime
+    };
+};
 
 export default connect(mapStateToProps, { searchYelp })(YelpSearch);
