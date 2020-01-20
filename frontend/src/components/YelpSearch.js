@@ -1,12 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../styles.css';
 import { searchYelp } from "../actions";
 import { connect } from 'react-redux';
-import SearchResult from './SearchResult';
-import TimeSelector from './TimeSelector.js';
-import Confirmation from './Confirmation';
 
-class YelpSearch extends React.Component {
+class YelpSearch extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -64,44 +61,13 @@ class YelpSearch extends React.Component {
     }
 
     render() {
-        // TODO: Refractor everything to a giant switch statement
-        // User has not selected a place yet
-        if (!this.props.selectedPlace) {
-            return (
-                <div>
-                    <div>Search for a place</div>
-                    {this.renderForm()}
-                    <ol>
-                        {this.props.results.map(restaurant =>
-                            <li key={restaurant.id}><SearchResult place={restaurant}/></li>
-                        )}
-                    </ol>
-                </div>
-            );
-        } else if (this.props.selectedTime) {
-            return (
-                <div>
-                    <Confirmation />
-                </div>
-            );
-        }
         return (
             <div>
-                <TimeSelector />
+                <h1>Search for a place</h1>
+                {this.renderForm()}
             </div>
         );
     }
 }
 
-const mapStateToProps = state => {
-    if (state.selectedPlace) {
-        console.log(state.selectedPlace.hours[0].open[0].start);
-    }
-    return {
-        results: state.yelpSearchResults,
-        selectedPlace: state.selectedPlace,
-        selectedTime: state.selectedTime
-    };
-};
-
-export default connect(mapStateToProps, { searchYelp })(YelpSearch);
+export default connect(undefined, { searchYelp })(YelpSearch);

@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { selectTime } from "../actions";
 
-// Need to find some way to get current date and time
 // JS Date: 0 refers to Sunday
-class TimeSelector extends Component {
+class TimeSelectorForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -56,7 +55,7 @@ class TimeSelector extends Component {
         if (this.props.businessHours) {
             return (
                 <div>
-                    <h3>Well isn't this interesting</h3>
+                    <h1>Select a time</h1>
                     <p>Start time: {this.props.businessHours.start}</p>
                     <p>End time: {this.props.businessHours.end}</p>
                     <p>Current Date: {this.getCurrentDate().toUTCString()}</p>
@@ -75,10 +74,10 @@ class TimeSelector extends Component {
 // Yelp returns hours by day (0: Monday, 1: Tuesday, etc.)
 const mapStateToProps = state => {
     let currentDate = new Date();
-    if (currentDate.getDay() == 0) {
+    if (currentDate.getDay() === 0) {
         return { businessHours: state.selectedPlace.hours[0].open[6] };
     }
     return { businessHours: state.selectedPlace.hours[0].open[currentDate.getDay() - 1] };
 };
 
-export default connect(mapStateToProps, { selectTime })(TimeSelector);
+export default connect(mapStateToProps, { selectTime })(TimeSelectorForm);

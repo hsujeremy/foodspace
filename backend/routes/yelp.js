@@ -1,5 +1,5 @@
-let express = require('express');
-let router = express.Router();
+const express = require('express');
+const router = express.Router();
 const yelp = require('yelp-fusion');
 require('dotenv').config();
 const client = yelp.client(process.env.API_KEY);

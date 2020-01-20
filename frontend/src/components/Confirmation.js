@@ -5,7 +5,7 @@ class Confirmation extends Component {
     render() {
         return (
             <div>
-                <h2>You're all set!</h2>
+                <h1>You're all set!</h1>
                 <p>{this.props.place}</p>
                 <p>{this.props.startTime} - {this.props.endTime}</p>
             </div>
