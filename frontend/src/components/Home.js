@@ -9,13 +9,13 @@ import '../styles.css';
 class Home extends Component {
     render() {
         if (this.props.selectedTime) {
-            return <Confirmation />;
+            return <div className='content'><Confirmation /></div>;
         } else if (this.props.selectedPlace) {
-            return <TimeSelectorForm />;
+            return <div className='content'><TimeSelectorForm /></div>;
         } else if (this.props.results.length > 0) {
-            return <PlaceOptions />;
+            return <div className='content'><PlaceOptions /></div>;
         }
-        return <YelpSearch />;
+        return <div className='content'><YelpSearch /></div>
     }
 }
 

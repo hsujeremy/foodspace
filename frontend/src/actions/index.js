@@ -30,4 +30,9 @@ export const selectTime = times => {
         type: 'TIME_SELECTED',
         payload: times
     };
-}
+};
+
+// Reset everything to default
+export const resetSearch = () => {
+    return { type: 'RESET' };
+};

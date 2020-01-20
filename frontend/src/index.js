@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Home from './components/Home';
+import { App } from './components/App';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers';
@@ -10,7 +10,7 @@ const store = createStore(reducers, applyMiddleware(thunk));
 
 render(
     <Provider store={store}>
-        <Home />
+        <App />
     </Provider>,
     document.getElementById('root')
 );

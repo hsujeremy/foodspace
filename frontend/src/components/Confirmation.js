@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { resetSearch } from "../actions";
 
 class Confirmation extends Component {
     render() {
@@ -8,6 +9,7 @@ class Confirmation extends Component {
                 <h1>You're all set!</h1>
                 <p>{this.props.place}</p>
                 <p>{this.props.startTime} - {this.props.endTime}</p>
+                <button onClick={() => this.props.resetSearch()}>New Search</button>
             </div>
         );
     }
@@ -21,4 +23,4 @@ const mapStateToProps = state => {
     };
 }
 
-export default connect(mapStateToProps)(Confirmation);
+export default connect(mapStateToProps, { resetSearch })(Confirmation);

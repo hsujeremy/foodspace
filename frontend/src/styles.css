@@ -13,9 +13,10 @@
     src: url('./fonts/Oxygen-Bold.ttf')
 }
 
-html {
-    padding: 5%;
+body {
     font-family: Oxygen-Regular;
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
@@ -24,4 +25,34 @@ h1 {
 
 .userInput {
     display: block;
+}
+
+/* Padding for content */
+div > .content {
+    padding: 0 2%;
+}
+
+/* NavBar styling */
+div > nav {
+    background-color: grey;
+    height: 50px;
+}
+
+nav > div {
+    float: left;
+}
+
+nav > div > a {
+    color: black;
+    display: block;
+    vertical-align: center;
+    text-decoration: none;
+    text-align: center;
+    padding: 14px 16px;
+}
+
+nav > div > a:hover {
+    color: red;
+    text-shadow: 1px 1px 2px black;
+    transition:  100ms;
 }
