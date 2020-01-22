@@ -25,6 +25,6 @@ const mapStateToProps = state => {
         selectedPlace: state.selectedPlace,
         selectedTime: state.selectedTime
     }
-}
+};
 
 export default connect(mapStateToProps)(Home);

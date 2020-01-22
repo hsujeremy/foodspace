@@ -21,6 +21,6 @@ const mapStateToProps = state => {
         startTime: state.selectedTime.startTime,
         endTime: state.selectedTime.endTime
     };
-}
+};
 
 export default connect(mapStateToProps, { resetSearch })(Confirmation);

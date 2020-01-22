@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const admin = require('firebase-admin');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

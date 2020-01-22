@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../styles.css';
 import { searchYelp } from "../actions";
 import { connect } from 'react-redux';
+import { db } from '../firebase';
 
 class YelpSearch extends Component {
     constructor(props) {
@@ -10,18 +11,25 @@ class YelpSearch extends Component {
             term: 'mexican',
             location: 'harvard',
             price: '1,2'
-        }
+        };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(e) {
-        e.preventDefault()
+        e.preventDefault();
         this.setState({[e.target.name]: e.target.value});
     }
 
     handleSubmit(e) {
         e.preventDefault();
+
+        // db.collection('cities').doc('SF').set({
+        //     name: 'San Francisco',
+        //     state: 'CA',
+        //     country: 'USA'
+        // }).then(() => console.log('Document successfully written'))
+        //     .catch(error => console.error('Error writing document ', error));
 
         // Create new params object in case state contains unfilled params
         let params = {

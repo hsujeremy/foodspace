@@ -1,5 +1,6 @@
 import React from "react";
 import Home from './Home';
+import PreviousPlans from "./PreviousPlans";
 import '../styles.css';
 import {
     BrowserRouter as Router,
@@ -15,15 +16,15 @@ export const NavBar = () => {
                 <nav>
                     <div><Link to="/">FoodSpace</Link></div>
                     <div><Link to="/about">About</Link></div>
-                    <div><Link to="/something">Something</Link></div>
+                    <div><Link to="/plans">Plans</Link></div>
                 </nav>
 
                 <Switch>
                     <Route path="/about">
                         <About />
                     </Route>
-                    <Route path="/something">
-                        <Something />
+                    <Route path="/plans">
+                        <PreviousPlans />
                     </Route>
                     <Route path="/">
                         <Home />

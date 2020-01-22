@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { selectTime } from "../actions";
 
@@ -37,8 +38,25 @@ class TimeSelectorForm extends Component {
             return;
         }
 
-        // Send to action creator to update store
+        // Send to action creator to update client-side store
         this.props.selectTime({ startTime: userIntStart, endTime: userIntEnd });
+
+        // Save to Cloud Firestore on server-side
+        let currentDate = new Date();
+        let formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
+        let formattedTime = `${currentDate.getHours()}-${currentDate.getMinutes() + 1}-${currentDate.getSeconds()}-${currentDate.getMilliseconds()}`;
+        let planIdentifier = `${formattedDate}-${formattedTime}`;
+
+        axios.get('/confirm-plan', {
+            params: {
+                place: this.props.place,
+                startTime: userIntStart,
+                endTime: userIntEnd,
+                timeStamp: planIdentifier
+            }
+        })
+            .then(response => console.log(response))
+            .catch(error => console.error(error));
     }
 
     renderForm() {
@@ -77,7 +95,10 @@ const mapStateToProps = state => {
     if (currentDate.getDay() === 0) {
         return { businessHours: state.selectedPlace.hours[0].open[6] };
     }
-    return { businessHours: state.selectedPlace.hours[0].open[currentDate.getDay() - 1] };
+    return {
+        place: state.selectedPlace.name,
+        businessHours: state.selectedPlace.hours[0].open[currentDate.getDay() - 1]
+    };
 };
 
 export default connect(mapStateToProps, { selectTime })(TimeSelectorForm);

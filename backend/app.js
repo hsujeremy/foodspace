@@ -7,8 +7,18 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const yelpRouter = require('./routes/yelp');
 const yelpBusinessRouter = require('./routes/yelp-business');
+const confirmPlanRouter = require('./routes/confirm-plan');
+const getPlansRouter = require('./routes/get-plans');
 
 const app = express();
+
+const admin = require('firebase-admin');
+
+let serviceAccount = require('./firebase-service-account.json');
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,6 +34,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/yelp', yelpRouter);
 app.use('/yelp-business', yelpBusinessRouter);
+app.use('/confirm-plan', confirmPlanRouter);
+app.use('/get-plans', getPlansRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
