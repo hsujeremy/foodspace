@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+
 // Make an request to Yelp endpoint in server to fetch search results object
 const yelpSearchReducer = (yelpSearchResults=[], action) => {
     if (action.type === 'YELP_SEARCHED') {

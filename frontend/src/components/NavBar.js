@@ -1,20 +1,17 @@
 import React from "react";
 import Home from './Home';
 import PreviousPlans from "./PreviousPlans";
+import { resetSearch } from "../actions";
 import '../styles.css';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-export const NavBar = () => {
+const NavBar = ({ resetSearch }) => {
     return (
         <Router>
             <div>
                 <nav>
-                    <div><Link to="/">FoodSpace</Link></div>
+                    <div><Link onClick={() => resetSearch() } to="/">FoodSpace</Link></div>
                     <div><Link to="/about">About</Link></div>
                     <div><Link to="/plans">Plans</Link></div>
                 </nav>
@@ -37,5 +34,4 @@ export const NavBar = () => {
 
 const About = () => <h1>About</h1>;
 
-const Something = () => <h1>Something</h1>;
-
+export default connect(undefined, { resetSearch })(NavBar);

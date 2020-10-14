@@ -1,8 +1,10 @@
 import React from 'react';
-import { NavBar } from './NavBar';
+import Home from './Home';
+import NavBar from './NavBar';
+
 
 export const App = () => (
     <div>
-        <NavBar />
+        <Home />
     </div>
 );

@@ -6,12 +6,9 @@ class PlaceOptions extends Component {
     render() {
         return (
             <div>
-                <h1>Select a place</h1>
-                <ol>
-                    {this.props.results.map(restaurant =>
-                        <li key={restaurant.id}><PlaceOptionCard place={restaurant}/></li>
-                    )}
-                </ol>
+                {this.props.results.map(restaurant =>
+                    <PlaceOptionCard place={restaurant} key={restaurant.id} />
+                )}
             </div>
         );
     }

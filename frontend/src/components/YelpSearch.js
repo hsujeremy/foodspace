@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import '../styles.css';
 import { searchYelp } from "../actions";
 import { connect } from 'react-redux';
-import { db } from '../firebase';
 
-class YelpSearch extends Component {
+class YelpSearchForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,13 +23,6 @@ class YelpSearch extends Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        // db.collection('cities').doc('SF').set({
-        //     name: 'San Francisco',
-        //     state: 'CA',
-        //     country: 'USA'
-        // }).then(() => console.log('Document successfully written'))
-        //     .catch(error => console.error('Error writing document ', error));
-
         // Create new params object in case state contains unfilled params
         let params = {
             term: this.state.term.toLowerCase(),
@@ -44,7 +36,7 @@ class YelpSearch extends Component {
             const editedParams = {
                 ...params,
                 price: '1,2,3,4'
-            }
+            };
             params = editedParams;
         }
 
@@ -53,29 +45,24 @@ class YelpSearch extends Component {
         if (params.location) {
             this.props.searchYelp(params);
         }
-        console.log('Please enter input for location');
-    }
-
-    // Renders the Yelp search form
-    renderForm() {
-        return (
-            <div>
-                <label className='userInput'>Term: <input name='term' type='text' value={this.state.term} onChange={this.handleChange} /></label>
-                <label className='userInput'>Location: <input name='location' type='text' value={this.state.location} onChange={this.handleChange} /></label>
-                <label className='userInput'>Price: <input name='price' type='text' value={this.state.price} onChange={this.handleChange} /></label>
-                <button onClick={this.handleSubmit}>Click this</button>
-            </div>
-        );
     }
 
     render() {
         return (
-            <div>
-                <h1>Search for a place</h1>
-                {this.renderForm()}
+            <div className='yelp-search-form'>
+                <label className='user-input'>
+                    Term: <input type='text' name='term' value={this.state.term} onChange={this.handleChange} />
+                </label>
+                <label className='user-input'>
+                    Location: <input type='text' name='location' value={this.state.location} onChange={this.handleChange} />
+                </label>
+                <label className='user-input'>
+                    Price: <input type='text' name='price' value={this.state.price} onChange={this.handleChange} />
+                </label>
+                <button onClick={this.handleSubmit}>Search</button>
             </div>
         );
     }
 }
 
-export default connect(undefined, { searchYelp })(YelpSearch);
+export default connect(undefined, { searchYelp })(YelpSearchForm);
