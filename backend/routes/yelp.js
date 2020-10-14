@@ -9,7 +9,8 @@ router.get('/', function(req, res) {
         term: req.query.term,
         location: req.query.location,
         price: req.query.price,
-        sort_by: req.query.sort_by
+        sort_by: req.query.sort_by,
+        limit: 5
     }).then(response => {
         return res.json(response.jsonBody.businesses);
     }).catch(e => {

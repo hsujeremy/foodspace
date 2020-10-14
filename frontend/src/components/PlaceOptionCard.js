@@ -9,7 +9,7 @@ class PlaceOptionCard extends Component {
     renderOperationStatus(is_closed) {
         if (is_closed)
             return <span className='closed'>Currently Closed</span>;
-        return <span className='open'>Currently Open</span>;    
+        return <span className='open'>Currently Open</span>;
     };
 
     render() {
@@ -21,8 +21,6 @@ class PlaceOptionCard extends Component {
             price,
             rating
         } = this.props.place;
-
-        console.log(is_closed)
 
         let ratingText = rating + ' Star' + (rating === 1 ? '' : 's');
 

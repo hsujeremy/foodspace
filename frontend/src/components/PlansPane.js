@@ -22,8 +22,6 @@ class PlansPane extends Component {
     }
 
     render() {
-        console.log(this.state.plans)
-        console.log('Here we are?')
         let plansList;
         if (this.state.plans.length === 0)
             plansList = <div>You don't have any current plans. Start a new search!</div>;

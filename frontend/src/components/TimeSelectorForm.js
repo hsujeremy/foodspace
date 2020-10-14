@@ -20,8 +20,7 @@ class TimeSelectorForm extends Component {
 
     handleChange(e) {
         e.preventDefault();
-        console.log(e.target.value);
-        this.setState({[e.target.name]: e.target.value})
+        this.setState({[e.target.name]: e.target.value});
     }
 
     handleSubmit(e) {
@@ -84,6 +83,7 @@ class TimeSelectorForm extends Component {
                 end = 'PM';
             }
         }
+        // Need to handle case where the 0 is preceding
         hrs = hrs.toString();
         min = min.toString();
         if (min.length < 2)

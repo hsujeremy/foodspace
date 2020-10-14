@@ -8,6 +8,14 @@ import PlaceOptionCard from './PlaceOptionCard';
 
 
 class SearchPane extends Component {
+    renderExampleConfirmationCard() {
+        return (
+            <div>
+                <div>You are all set for Salt and Straw from 4:00 PM to 5:00 PM!</div>
+                <button>Start a New Search</button>
+            </div>
+        );
+    }
     renderExamplePlaceOptionCard() {
         return (
             <div className='place-option-card'>
@@ -51,7 +59,6 @@ class SearchPane extends Component {
             selectedTime
         } = this.props;
         let header;
-        console.log(selectedTime)
 
         let content;
 
