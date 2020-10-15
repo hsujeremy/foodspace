@@ -92,10 +92,17 @@ nav > div > a:hover {
     padding: 0 12px;
 }
 
-.title {
+#title {
     margin: 0;
     padding: 0 12px 15px 12px;
-    border-bottom: 0.5px solid gray
+    border-bottom: 0.5px solid gray;
+    transition: 100ms;
+}
+
+#title:hover {
+    text-shadow: 1px 1px 2px #808080;
+    transition: text-shadow 100ms;
+    cursor: pointer;
 }
 
 h2 {
@@ -226,4 +233,14 @@ button:hover {
 
 .time-selector > .time-selector-form > #end-time-input {
     padding-bottom: 10px;
+}
+
+.plan-card {
+    padding: 5px;
+    margin: 10px 0;
+}
+
+.plan-card > .name {
+    font-family: 'DMSans-Medium';
+    font-size: 1.5rem;
 }

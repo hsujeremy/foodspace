@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import SearchPane from './SearchPane';
 import PlansPane from './PlansPane';
 import '../styles.css';
+import { connect } from 'react-redux';
+import { resetSearch } from '../actions';
 
 class Home extends Component {
     render() {
         return (
             <div className='home-content'>
-                <h1 className='title'>FoodSpace</h1>
+                <h1 id='title' onClick={() => this.props.resetSearch()}>FoodSpace</h1>
                 <div className='double-pane'>
                     <SearchPane />
                     <PlansPane />
@@ -17,4 +19,6 @@ class Home extends Component {
     }
 };
 
-export default Home;
+const mapStateToProps = state => {};
+
+export default connect(mapStateToProps, { resetSearch })(Home);

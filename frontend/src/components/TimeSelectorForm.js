@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { selectTime } from '../actions';
+import { resetSearch, selectTime } from '../actions';
 
 
 class TimeSelectorForm extends Component {
@@ -144,6 +144,7 @@ class TimeSelectorForm extends Component {
         return (
             <div className='time-selector'>
                 <div className='hour-status'>{bHoursTxt}</div>
+                <button onClick={() => this.props.resetSearch()}>New Search</button>
             </div>
         );
     };
@@ -177,4 +178,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, { selectTime })(TimeSelectorForm);
+export default connect(mapStateToProps, { resetSearch, selectTime })(TimeSelectorForm);

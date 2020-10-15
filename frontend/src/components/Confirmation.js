@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { resetSearch } from "../actions";
+import { resetSearch } from '../actions';
 
 
 class Confirmation extends Component {

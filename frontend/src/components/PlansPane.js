@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { PlanCard } from './PlanCard'
 
 
 class PlansPane extends Component {
@@ -18,7 +19,7 @@ class PlansPane extends Component {
             .then(response => {
                 this.setState({ plans: response.data })
             })
-            .catch(error => console.error(error))
+            .catch(error => console.error(error));
     }
 
     render() {
@@ -26,8 +27,9 @@ class PlansPane extends Component {
         if (this.state.plans.length === 0)
             plansList = <div>You don't have any current plans. Start a new search!</div>;
         else {
+            console.log(this.state.plans);
             plansList = this.state.plans.map(plan => {
-                return <li>{plan.place}</li>
+                return <PlanCard place={plan} />
             });
         }
 
