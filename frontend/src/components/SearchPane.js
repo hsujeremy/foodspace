@@ -4,54 +4,9 @@ import PlaceOptions from './PlaceOptions';
 import TimeSelectorForm from './TimeSelectorForm';
 import Confirmation from './Confirmation';
 import { connect } from 'react-redux';
-import PlaceOptionCard from './PlaceOptionCard';
 
 
 class SearchPane extends Component {
-    renderExampleConfirmationCard() {
-        return (
-            <div>
-                <div>You are all set for Salt and Straw from 4:00 PM to 5:00 PM!</div>
-                <button>Start a New Search</button>
-            </div>
-        );
-    }
-    renderExamplePlaceOptionCard() {
-        return (
-            <div className='place-option-card'>
-                <div className='place-metadata'>
-                    <div className='restaurant-name'>Salt and Straw</div>
-                    <div>$$$$</div>
-                    <div>5 Stars · Dessert</div>
-                    <div>250 University Ave STE 100</div>
-                    <div>Palo Alto, CA, 94301</div>
-                </div>
-                <div className='button'>Select</div>
-            </div>
-        );
-    };
-
-    renderExampleTimeSelectorForm() {
-        return (
-            <div className='time-selector'>
-                <div className='current-timestamp'>
-                    <div>Friday · September 25th, 2020</div>
-                    <div>8:45 AM · Pacific Standard Time</div>
-                </div>
-                <div className='hour-status'>Salt and Straw is open today from 10 AM to 9 PM.</div>
-                <div className='time-selector-form'>
-                    <label className='user-input'>
-                        Start: <input type='time' />
-                    </label>
-                    <label className='user-input' id='end-time-input'>
-                        End: <input type='time' />
-                    </label>
-                    <button>Search</button>
-                </div>
-            </div>
-        );
-    }
-
     render() {
         const {
             results,
@@ -82,7 +37,7 @@ class SearchPane extends Component {
                 {content}
             </div>
         );
-    }
+    };
 };
 
 const mapStateToProps = state => {
@@ -90,7 +45,7 @@ const mapStateToProps = state => {
         results: state.yelpSearchResults,
         selectedPlace: state.selectedPlace,
         selectedTime: state.selectedTime
-    }
+    };
 };
 
 export default connect(mapStateToProps)(SearchPane);

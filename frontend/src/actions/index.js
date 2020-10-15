@@ -13,9 +13,9 @@ export const searchYelp = params => async dispatch => {
     });
 };
 
-export const selectPlace = place => async dispatch => {
+export const selectPlace = id => async dispatch => {
     const response = await axios.get('/yelp-business', {
-        params: { id: place.id }
+        params: { id }
     });
 
     dispatch({

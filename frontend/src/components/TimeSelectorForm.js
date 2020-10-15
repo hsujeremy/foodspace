@@ -21,7 +21,7 @@ class TimeSelectorForm extends Component {
     handleChange(e) {
         e.preventDefault();
         this.setState({[e.target.name]: e.target.value});
-    }
+    };
 
     handleSubmit(e) {
         e.preventDefault();
@@ -74,16 +74,12 @@ class TimeSelectorForm extends Component {
         let end = '';
         if (isTwelve) {
             end = hrs < 12 ? 'AM' : 'PM';
-            if (hrs < 12) {
-                if (hrs == 0)
-                    hrs += 12;
-                end = 'AM';
-            } else {
+            if (hrs === 0)
+                hrs = 12;
+            else if (hrs > 12)
                 hrs -= 12;
-                end = 'PM';
-            }
         }
-        // Need to handle case where the 0 is preceding
+
         hrs = hrs.toString();
         min = min.toString();
         if (min.length < 2)
@@ -96,16 +92,11 @@ class TimeSelectorForm extends Component {
         let [currMonth, currDate, currYear] = ( new Date() ).toLocaleDateString().split('/');
         let bHoursTxt;
 
-        if (this.props.hours === undefined)
+        if (this.props.hours === null)
             bHoursTxt = `${this.props.place} is currently not open. Check back again tomorrow!`;
-        // else {
-            // let startStr = this.props.hours.start;
-            // let endStr = this.props.hours.end;
-            // if (this.props.hours.is_overnight)
-            //     endStr = (parseInt(endStr) + 2400).toString();
-
-            let startStr = '1000';
-            let endStr = '2700';
+        else {
+            let startStr = this.props.hours.start;
+            let endStr = this.props.hours.end;
 
             let timeDiff = this.findTimeDifference(startStr, endStr);
             let bStart = new Date(currYear, currMonth - 1, currDate, parseInt(startStr.substring(0, 2)), parseInt(startStr.substring(2)), 0);
@@ -116,7 +107,7 @@ class TimeSelectorForm extends Component {
             let bStartTimeTxt = this.formatTime(bStart.getHours(), bStart.getMinutes(), true);
             let bEndTimeTxt = this.formatTime(bEnd.getHours(), bEnd.getMinutes(), true);
             let bStartTxt = `${bStartTimeTxt} today`;
-            let bEndTxt = `${bEndTimeTxt} ${bEnd.getDate() != bStart.getDate() ? 'tomorrow' : 'today'}`;
+            let bEndTxt = `${bEndTimeTxt} ${bEnd.getDate() !== bStart.getDate() ? 'tomorrow' : 'today'}`;
 
             bHoursTxt = `${this.props.place} is open from ${bStartTxt} to ${bEndTxt}.`;
 
@@ -126,31 +117,33 @@ class TimeSelectorForm extends Component {
             // Only allow them to pick times in a single day for now
             if (bEndTimeTxt > '23:59')
                 bEndTimeTxt = '23:59';
-        // }
+
+            return (
+                <div className='time-selector'>
+                    <div className='hour-status'>{bHoursTxt}</div>
+                    <div className='time-selector-form'>
+                        <label className='user-input'>
+                            Start: <input type='time'
+                                            name='userStart'
+                                            value={this.state.userStart}
+                                            onChange={this.handleChange} />
+                        </label>
+                        <label className='user-input' id='end-time-input'>
+                            End: <input type='time'
+                                        name='userEnd'
+                                        value={this.state.userEnd}
+                                        onChange={this.handleChange} />
+                        </label>
+                        <button onClick={this.handleSubmit}>Confirm Time</button>
+                        <div>{this.state.submitStatus}</div>
+                    </div>
+                </div>
+            );
+        }
 
         return (
             <div className='time-selector'>
                 <div className='hour-status'>{bHoursTxt}</div>
-                <div className='time-selector-form'>
-                    <label className='user-input'>
-                        Start: <input type='time'
-                                      name='userStart'
-                                      value={this.state.userStart}
-                                      onChange={this.handleChange}
-                                      min={bStartTimeTxt}
-                                      max={bEndTimeTxt} />
-                    </label>
-                    <label className='user-input' id='end-time-input'>
-                        End: <input type='time'
-                                    name='userEnd'
-                                    value={this.state.userEnd}
-                                    onChange={this.handleChange}
-                                    min={bStartTimeTxt}
-                                    max={bEndTimeTxt} />
-                    </label>
-                    <button onClick={this.handleSubmit}>Confirm Time</button>
-                    <div>{this.state.submitStatus}</div>
-                </div>
             </div>
         );
     };
@@ -158,7 +151,6 @@ class TimeSelectorForm extends Component {
 
 const mapStateToProps = state => {
     let place = state.selectedPlace;
-
     let yelpDayIndex = ( new Date () ).getDay() - 1;
     if (yelpDayIndex < 0)
         yelpDayIndex = 6;
@@ -167,14 +159,21 @@ const mapStateToProps = state => {
         place: place.name
     };
 
-    if (place.is_closed)
+    if (place.hours[0].is_open_now) {
+        let endTime = parseInt(place.hours[0].open[yelpDayIndex].end);
+        if (place.hours[0].open[yelpDayIndex].is_overnight)
+            endTime += 2400;
         return {
             ...props,
-            hours: null
+            hours: {
+                start: place.hours[0].open[yelpDayIndex].start,
+                end: endTime.toString()
+            }
         };
+    }
     return {
         ...props,
-        hours: place.hours[yelpDayIndex]
+        hours: null
     };
 };
 

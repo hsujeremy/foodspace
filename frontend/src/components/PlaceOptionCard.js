@@ -6,16 +6,10 @@ import { selectPlace } from '../actions';
 // Displays each restaurant search result
 // Gives user the option to select (perhaps passes the hours of the day for time?) - figure out later
 class PlaceOptionCard extends Component {
-    renderOperationStatus(is_closed) {
-        if (is_closed)
-            return <span className='closed'>Currently Closed</span>;
-        return <span className='open'>Currently Open</span>;
-    };
-
     render() {
         const {
             categories,
-            is_closed,
+            id,
             location,
             name,
             price,
@@ -34,12 +28,12 @@ class PlaceOptionCard extends Component {
             <div className='place-option-card'>
                 <div className='place-metadata'>
                     <div className='restaurant-name'>{name}</div>
-                    <div>{price} · {this.renderOperationStatus(is_closed)}</div>
+                    <div>{price}</div>
                     <div>{ratingText} · {categoriesText}</div>
                     <div>{location.address1}</div>
                     <div>{location.city}, {location.state}, {location.country}, {location.zip_code}</div>
                 </div>
-                <div className='button' onClick={() => this.props.selectPlace(this.props.place)}>Select</div>
+                <div className='button' onClick={() => this.props.selectPlace(id)}>Select</div>
             </div>
         );
     }
