@@ -15,7 +15,11 @@ router.get('/', function(req, res) {
     return res.json(response.jsonBody.businesses);
   }).catch(e => {
     console.log(e);
-    return res.json('There was an error fetching the Yelp information');
+    return res.json({
+      status: 500,
+      title: 'Error fetching data from Yelp Fusion API',
+      detail: e
+    });
   });
 });
 

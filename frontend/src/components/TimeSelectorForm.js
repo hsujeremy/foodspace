@@ -3,179 +3,204 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { resetSearch, selectTime } from '../actions';
 
-
 class TimeSelectorForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            businessStart: '',
-            businessEnd: '',
-            userStart: '',
-            userEnd: '',
-            submitStatus: ''
-        };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+  constructor(props) {
+    super(props);
+    this.state = {
+      businessStart: '',
+      businessEnd: '',
+      userStart: '',
+      userEnd: '',
+      submitStatus: ''
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  };
 
-    handleChange(e) {
-        e.preventDefault();
-        this.setState({[e.target.name]: e.target.value});
-    };
+  handleChange(e) {
+    e.preventDefault();
+    this.setState({[e.target.name]: e.target.value});
+  };
 
-    handleSubmit(e) {
-        e.preventDefault();
-        // Make sure to handle time validation
-        // Deal with business hours later
-        let localSubmitStatus = '';
-        if (this.state.userStart.length === 0 || this.state.userEnd.length === 0)
-            localSubmitStatus = 'Fields are required.';
-        else if (this.state.userStart > this.state.userEnd)
-            localSubmitStatus = 'Start time must precede end time.';
+  handleSubmit(e) {
+    e.preventDefault();
+    // Make sure to handle time validation
+    // Deal with business hours later
+    let localSubmitStatus = '';
+    if (this.state.userStart.length === 0 || this.state.userEnd.length === 0) {
+      localSubmitStatus = 'Fields are required.';
+    } else if (this.state.userStart > this.state.userEnd) {
+      localSubmitStatus = 'Start time must precede end time.';
+    }
 
-        this.setState({submitStatus: localSubmitStatus}, () => {
-            if (this.state.submitStatus.length > 0)
-                return;
-            // Send to action creator to update client-side store
-            this.props.selectTime({ startTime: this.state.userStart, endTime: this.state.userEnd });
+    this.setState({submitStatus: localSubmitStatus}, () => {
+      if (this.state.submitStatus.length > 0) {
+        return;
+      }
+      // Send to action creator to update client-side store
+      this.props.selectTime({
+        startTime: this.state.userStart,
+        endTime: this.state.userEnd
+      });
 
-            // Save to Cloud Firestore on server-side
-            let currentDate = new Date()
-            let formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
-            let formattedTime = `${currentDate.getHours()}-${currentDate.getMinutes() + 1}-${currentDate.getSeconds()}-${currentDate.getMilliseconds()}`;
-            let planIdentifier = `${formattedDate}-${formattedTime}`;
-            axios.get('/confirm-plan', {
-                params: {
-                    place: this.props.place,
-                    startTime: this.state.userStart,
-                    endTime: this.state.userEnd,
-                    timeStamp: planIdentifier
-                }
-            })
-                .then(response => console.log(response))
-                .catch(error => console.log(error));
-        });
-    };
+      // Save to Cloud Firestore on server-side
+      let currentDate = new Date()
+      let formattedDate = `${currentDate.getFullYear()}-` +
+                          `${currentDate.getMonth() + 1}-` +
+                          `${currentDate.getDate()}`;
 
-    findTimeDifference(startStr, endStr) {
-        let date1 = new Date(2001, 0, 15, startStr.substring(0, 2), startStr.substring(2), 0);
-        let date2 = new Date(2001, 0, 15, endStr.substring(0, 2), endStr.substring(2), 0);
-        let diff = Math.abs(date1 - date2);
+      let formattedTime = `${currentDate.getHours()}-` +
+                          `${currentDate.getMinutes() + 1}-` +
+                          `${currentDate.getSeconds()}-` +
+                          `${currentDate.getMilliseconds()}`;
 
-        let ms = parseInt((diff % 1000) / 100);
-        let sec = Math.floor((diff / 1000) % 60);
-        let min = Math.floor((diff / (1000 * 60)) % 60);
-        let hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
-
-        return [hrs, min, sec, ms];
-    };
-
-    formatTime(hrs, min, isTwelve) {
-        let end = '';
-        if (isTwelve) {
-            end = hrs < 12 ? 'AM' : 'PM';
-            if (hrs === 0)
-                hrs = 12;
-            else if (hrs > 12)
-                hrs -= 12;
+      let planIdentifier = `${formattedDate}-${formattedTime}`;
+      axios.get('/confirm-plan', {
+        params: {
+          place: this.props.place,
+          startTime: this.state.userStart,
+          endTime: this.state.userEnd,
+          timeStamp: planIdentifier
         }
+      })
+        .then(response => console.log(response))
+        .catch(error => console.log(error));
+    });
+  };
 
-        hrs = hrs.toString();
-        min = min.toString();
-        if (min.length < 2)
-            min += '0';
-        return `${hrs}:${min} ${end}`.trim();
-    };
+  findTimeDifference(startStr, endStr) {
+    let date1 = new Date(2001, 0, 15,
+                         startStr.substring(0, 2), startStr.substring(2), 0);
+    let date2 = new Date(2001, 0, 15,
+                         endStr.substring(0, 2), endStr.substring(2), 0);
+    let diff = Math.abs(date1 - date2);
 
-    render() {
-        // Make sure users are using Chrome
-        let [currMonth, currDate, currYear] = ( new Date() ).toLocaleDateString().split('/');
-        let bHoursTxt;
+    let ms = parseInt((diff % 1000) / 100);
+    let sec = Math.floor((diff / 1000) % 60);
+    let min = Math.floor((diff / (1000 * 60)) % 60);
+    let hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
 
-        if (this.props.hours === null)
-            bHoursTxt = `${this.props.place} is currently not open. Check back again tomorrow!`;
-        else {
-            let startStr = this.props.hours.start;
-            let endStr = this.props.hours.end;
+    return [hrs, min, sec, ms];
+  };
 
-            let timeDiff = this.findTimeDifference(startStr, endStr);
-            let bStart = new Date(currYear, currMonth - 1, currDate, parseInt(startStr.substring(0, 2)), parseInt(startStr.substring(2)), 0);
-            let bEnd = new Date(bStart.getTime());
-            bEnd.setHours(bEnd.getHours() + timeDiff[0]);
-            bEnd.setMinutes(bEnd.getMinutes() + timeDiff[1]);
+  formatTime(hrs, min, isTwelve) {
+    let end = '';
+    if (isTwelve) {
+      end = hrs < 12 ? 'AM' : 'PM';
+      if (hrs === 0) {
+        hrs = 12;
+      } else if (hrs > 12) {
+        hrs -= 12;
+      }
+    }
 
-            let bStartTimeTxt = this.formatTime(bStart.getHours(), bStart.getMinutes(), true);
-            let bEndTimeTxt = this.formatTime(bEnd.getHours(), bEnd.getMinutes(), true);
-            let bStartTxt = `${bStartTimeTxt} today`;
-            let bEndTxt = `${bEndTimeTxt} ${bEnd.getDate() !== bStart.getDate() ? 'tomorrow' : 'today'}`;
+    hrs = hrs.toString();
+    min = min.toString();
+    if (min.length < 2) {
+      min += '0';
+    }
+    return `${hrs}:${min} ${end}`.trim();
+  };
 
-            bHoursTxt = `${this.props.place} is open from ${bStartTxt} to ${bEndTxt}.`;
+  render() {
+    // Make sure users are using Chrome
+    let [currMonth, currDate, currYear] = (new Date()).toLocaleDateString().split('/');
+    let bHoursTxt;
 
-            bStartTimeTxt = this.formatTime(bStart.getHours(), bStart.getMinutes(), false);
-            bEndTimeTxt = this.formatTime(bEnd.getHours(), bEnd.getMinutes(), false);
+    if (this.props.hours === null) {
+      bHoursTxt = `${this.props.place} is currently not open. Check back again tomorrow!`;
+    } else {
+      let startStr = this.props.hours.start;
+      let endStr = this.props.hours.end;
 
-            // Only allow them to pick times in a single day for now
-            if (bEndTimeTxt > '23:59')
-                bEndTimeTxt = '23:59';
+      let timeDiff = this.findTimeDifference(startStr, endStr);
+      let bStart = new Date(currYear, currMonth - 1, currDate,
+                            parseInt(startStr.substring(0, 2)),
+                            parseInt(startStr.substring(2)), 0);
+      let bEnd = new Date(bStart.getTime());
+      bEnd.setHours(bEnd.getHours() + timeDiff[0]);
+      bEnd.setMinutes(bEnd.getMinutes() + timeDiff[1]);
 
-            return (
-                <div className='time-selector'>
-                    <div className='hour-status'>{bHoursTxt}</div>
-                    <div className='time-selector-form'>
-                        <label className='user-input'>
-                            Start: <input type='time'
-                                            name='userStart'
-                                            value={this.state.userStart}
-                                            onChange={this.handleChange} />
-                        </label>
-                        <label className='user-input' id='end-time-input'>
-                            End: <input type='time'
-                                        name='userEnd'
-                                        value={this.state.userEnd}
-                                        onChange={this.handleChange} />
-                        </label>
-                        <button onClick={this.handleSubmit}>Confirm Time</button>
-                        <div>{this.state.submitStatus}</div>
-                    </div>
-                </div>
-            );
-        }
+      let bStartTimeTxt = this.formatTime(bStart.getHours(), bStart.getMinutes(), true);
+      let bEndTimeTxt = this.formatTime(bEnd.getHours(), bEnd.getMinutes(), true);
+      let bStartTxt = `${bStartTimeTxt} today`;
+      let bEndTxt = `${bEndTimeTxt} ` +
+                    `${bEnd.getDate() !== bStart.getDate() ? 'tomorrow' : 'today'}`;
 
-        return (
-            <div className='time-selector'>
-                <div className='hour-status'>{bHoursTxt}</div>
-                <button onClick={() => this.props.resetSearch()}>New Search</button>
-            </div>
-        );
-    };
+      bHoursTxt = `${this.props.place} is open from ${bStartTxt} to ${bEndTxt}.`;
+
+      bStartTimeTxt = this.formatTime(bStart.getHours(), bStart.getMinutes(), false);
+      bEndTimeTxt = this.formatTime(bEnd.getHours(), bEnd.getMinutes(), false);
+
+      // Only allow them to pick times in a single day for now
+      if (bEndTimeTxt > '23:59') {
+        bEndTimeTxt = '23:59';
+      }
+
+      return (
+        <div className='time-selector'>
+          <div className='hour-status'>{bHoursTxt}</div>
+          <div className='time-selector-form'>
+            <label className='user-input'>
+              Start: <input
+                       type='time'
+                       name='userStart'
+                       value={this.state.userStart}
+                       onChange={this.handleChange}
+                     />
+            </label>
+            <label className='user-input' id='end-time-input'>
+              End: <input
+                     type='time'
+                     name='userEnd'
+                     value={this.state.userEnd}
+                     onChange={this.handleChange}
+                   />
+            </label>
+            <button onClick={this.handleSubmit}>Confirm Time</button>
+            <div>{this.state.submitStatus}</div>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className='time-selector'>
+        <div className='hour-status'>{bHoursTxt}</div>
+        <button onClick={() => this.props.resetSearch()}>New Search</button>
+      </div>
+    );
+  };
 };
 
 const mapStateToProps = state => {
-    let place = state.selectedPlace;
-    let yelpDayIndex = ( new Date () ).getDay() - 1;
-    if (yelpDayIndex < 0)
-        yelpDayIndex = 6;
+  let place = state.selectedPlace;
+  let yelpDayIndex = ( new Date () ).getDay() - 1;
+  if (yelpDayIndex < 0) {
+    yelpDayIndex = 6;
+  }
 
-    let props = {
-        place: place.name
-    };
+  let props = {
+    place: place.name
+  };
 
-    if (place.hours[0].is_open_now) {
-        let endTime = parseInt(place.hours[0].open[yelpDayIndex].end);
-        if (place.hours[0].open[yelpDayIndex].is_overnight)
-            endTime += 2400;
-        return {
-            ...props,
-            hours: {
-                start: place.hours[0].open[yelpDayIndex].start,
-                end: endTime.toString()
-            }
-        };
+  if (place.hours[0].is_open_now) {
+    let endTime = parseInt(place.hours[0].open[yelpDayIndex].end);
+    if (place.hours[0].open[yelpDayIndex].is_overnight) {
+      endTime += 2400;
     }
     return {
-        ...props,
-        hours: null
+      ...props,
+      hours: {
+        start: place.hours[0].open[yelpDayIndex].start,
+        end: endTime.toString()
+      }
     };
+  }
+  return {
+    ...props,
+    hours: null
+  };
 };
 
 export default connect(mapStateToProps, { resetSearch, selectTime })(TimeSelectorForm);
