@@ -24,10 +24,10 @@ class SearchPane extends Component {
     } else if (selectedPlace) {
       header = 'Select a Time'
       content = <TimeSelectorForm />;
-    } else if (results.status === 500) {
+    } else if (!results.success) {
       header = 'Error'
       content = <Error />;
-    } else if (results.length !== undefined && results.length > 0) {
+    } else if (results.success && results.businesses.length > 0) {
       header = 'Select a Place'
       content = <PlaceOptions />;
     } else {

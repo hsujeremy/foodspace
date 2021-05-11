@@ -1,14 +1,24 @@
 import { combineReducers } from 'redux';
 
 // Make an request to Yelp endpoint in server to fetch search results object
-const yelpSearchReducer = (yelpSearchResults=[], action) => {
-  if (action.type === 'YELP_SEARCHED') {
-    console.log(action.payload);
-    return action.payload;
-  } else if (action.type === 'RESET') {
-    return [];
+const yelpSearchReducer = (yelpSearchResults, action) => {
+  const defaultObj = {
+    success: true,
+    businesses: []
   }
-  return yelpSearchResults;
+  if (action.type === 'YELP_SEARCHED') {
+    if (action.payload.statusCode === 400) {
+      return {
+        success: false,
+        businesses: []
+      }
+    }
+    return {
+      success: true,
+      businesses: action.payload
+    }
+  }
+  return defaultObj;
 };
 
 // Initialize selectedPlace to null
