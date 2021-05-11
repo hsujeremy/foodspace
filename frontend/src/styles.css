@@ -1,260 +1,254 @@
 @font-face {
-    font-family: Oxygen-Light;
-    src: url('./fonts/Oxygen-Light.ttf')
+  font-family: Oxygen-Light;
+  src: url('./fonts/Oxygen-Light.ttf')
 }
 
 @font-face {
-    font-family: Oxygen-Regular;
-    src: url('./fonts/Oxygen-Regular.ttf')
+  font-family: Oxygen-Regular;
+  src: url('./fonts/Oxygen-Regular.ttf')
 }
 
 @font-face {
-    font-family: Oxygen-Bold;
-    src: url('./fonts/Oxygen-Bold.ttf')
+  font-family: Oxygen-Bold;
+  src: url('./fonts/Oxygen-Bold.ttf')
 }
 
 @font-face {
-    font-family: DMSans-Regular;
-    src: url('./fonts/DMSans-Regular.ttf')
+  font-family: DMSans-Regular;
+  src: url('./fonts/DMSans-Regular.ttf')
 }
 
 @font-face {
-    font-family: DMSans-Medium;
-    src: url('./fonts/DMSans-Medium.ttf')
+  font-family: DMSans-Medium;
+  src: url('./fonts/DMSans-Medium.ttf')
 }
 
 @font-face {
-    font-family: DMSans-Bold;
-    src: url('./fonts/DMSans-Bold.ttf')
+  font-family: DMSans-Bold;
+  src: url('./fonts/DMSans-Bold.ttf')
 }
 
 body {
-    font-family: DMSans-Regular;
-    font-size: 1.2rem;
-    margin: 75px auto;
-    width: 1024px;
-    /* border: 2px black solid; */
+  font-family: DMSans-Regular;
+  font-size: 1.2rem;
+  margin: 75px auto;
+  width: 1024px;
 }
 
 h1 {
-    font-family: DMSans-Bold;
-    font-size: 2.5rem;
+  font-family: DMSans-Bold;
+  font-size: 2.5rem;
 }
 
 /* Padding for content */
 div > .content {
-    padding: 0 2%;
+  padding: 0 2%;
 }
 
 /* NavBar styling */
 div > nav {
-    background-color: #990000;
-    height: 50px;
+  background-color: #990000;
+  height: 50px;
 }
 
 nav > div {
-    float: left;
+  float: left;
 }
 
 nav > div > a {
-    color: white;
-    display: block;
-    font-family: DMSans-Bold;
-    vertical-align: center;
-    text-decoration: none;
-    text-align: center;
-    padding: 14px 16px;
+  color: white;
+  display: block;
+  font-family: DMSans-Bold;
+  vertical-align: center;
+  text-decoration: none;
+  text-align: center;
+  padding: 14px 16px;
 }
 
 nav > div > a:hover {
-    color: black;
-    text-shadow: 1px 1px 2px black;
-    transition:  100ms;
+  color: black;
+  text-shadow: 1px 1px 2px black;
+  transition:  100ms;
 }
 
-/* General button styling */
-
-/* Other styling (part of the overhaul) that I should probably categorize soon */
 .double-pane {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .search-pane {
-    /* border: blue 2px solid; */
-    width: 512px;
-    padding: 0 12px;
+  width: 512px;
+  padding: 0 12px;
 }
 
 .plans-pane {
-    /* border: red 2px solid; */
-    width: 512px;
-    padding: 0 12px;
+  width: 512px;
+  padding: 0 12px;
 }
 
 #title {
-    margin: 0;
-    padding: 0 12px 15px 12px;
-    border-bottom: 0.5px solid gray;
-    transition: 100ms;
+  margin: 0;
+  padding: 0 12px 15px 12px;
+  border-bottom: 0.5px solid gray;
+  transition: 100ms;
 }
 
 #title:hover {
-    text-shadow: 1px 1px 2px #808080;
-    transition: text-shadow 100ms;
-    cursor: pointer;
+  text-shadow: 1px 1px 2px #808080;
+  transition: text-shadow 100ms;
+  cursor: pointer;
 }
 
 h2 {
-    font-family: 'DMSans-Medium';
-    font-size: 2rem;
-    margin: 10px 0 5px 0;
+  font-family: 'DMSans-Medium';
+  font-size: 2rem;
+  margin: 10px 0 5px 0;
 }
 
 .yelp-search-form {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .yelp-search-form > .user-input {
-    display: block;
-    padding: 3px 0;
+  display: block;
+  padding: 3px 0;
 }
 
 label > input {
-    height: 25px;
-    width: 50%;
-    padding: 3px;
-    font-family: 'DMSans-Regular';
-    font-size: 1.1rem;
-    background-color: #EBE9E9;
-    transition: 100ms;
-    border: none;
+  height: 25px;
+  width: 50%;
+  padding: 3px;
+  font-family: 'DMSans-Regular';
+  font-size: 1.1rem;
+  background-color: #EBE9E9;
+  transition: 100ms;
+  border: none;
 }
 
 label > input:hover {
-    transition: 100ms;
-    background-color: #C4C4C4;
+  transition: 100ms;
+  background-color: #C4C4C4;
 }
 
 label > input:focus {
-    background-color: #C4C4C4;
+  background-color: #C4C4C4;
 }
 
 button {
-    background-color: #C4C4C4;
-    color: black;
-    font-family: 'DMSans-Medium';
-    font-size: 1.2rem;
-    height: 45px;
-    width: 75%;
-    border-radius: 45px;
-    border: none;
-    margin: 10px 0;
-    transition: 100ms;
+  background-color: #C4C4C4;
+  color: black;
+  font-family: 'DMSans-Medium';
+  font-size: 1.2rem;
+  height: 45px;
+  width: 75%;
+  border-radius: 45px;
+  border: none;
+  margin: 10px 0;
+  transition: 100ms;
 }
 
 button#small {
-    font-size: 1.1rem;
-    height: 45px;
-    width: 75px;
-    border-radius: 45px;
-    text-align: center;
+  font-size: 1.1rem;
+  height: 45px;
+  width: 75px;
+  border-radius: 45px;
+  text-align: center;
 }
 
 button:hover {
-    transition: 100ms;
-    background-color: #ADD8E6;
-    cursor: pointer;
+  transition: 100ms;
+  background-color: #ADD8E6;
+  cursor: pointer;
 }
 
 .place-option-card {
-    display: flex;
-    flex-direction: row;
-    border: black 2px solid;
-    border-radius: 15px;
-    padding: 5px;
-    margin: 10px 0;
-    height: 125px;
-    font-size: 1rem;
-    vertical-align: center;
+  display: flex;
+  flex-direction: row;
+  border: black 2px solid;
+  border-radius: 15px;
+  padding: 5px;
+  margin: 10px 0;
+  height: 125px;
+  font-size: 1rem;
+  vertical-align: center;
 }
 
 .place-option-card > .button {
-    background: none;
-    border: none;
-    margin: 0;
-    padding: 50px 5px;
-    cursor: pointer;
-    font-family: 'DMSans-Bold';
-    font-size: 1.2rem;
-    transition: 100ms;
-    vertical-align: center;
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 50px 5px;
+  cursor: pointer;
+  font-family: 'DMSans-Bold';
+  font-size: 1.2rem;
+  transition: 100ms;
+  vertical-align: center;
 }
 
 .place-option-card > .button:hover {
-    text-shadow: 1px 1px 2px #818181;
-    transition: text-shadow 100ms;
+  text-shadow: 1px 1px 2px #818181;
+  transition: text-shadow 100ms;
 }
 
 .place-option-card > .place-metadata {
-    vertical-align: center;
-    padding: 0 5px;
-    width: 80%;
+  vertical-align: center;
+  padding: 0 5px;
+  width: 80%;
 }
 
 .place-option-card > .place-metadata > .restaurant-name {
-    font-family: 'DMSans-Medium';
-    font-size: 1.5rem;
+  font-family: 'DMSans-Medium';
+  font-size: 1.5rem;
 }
 
 .open {
-    color: green;
+  color: green;
 }
 
 .closed {
-    color: red;
+  color: red;
 }
 
 .time-selector {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .time-selector > .current-timestamp {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .time-selector > .hour-status {
-    padding: 10px 0;
+  padding: 10px 0;
 }
 
 .time-selector > .time-selector-form {
-    padding: 5px 0 50px 0;
+  padding: 5px 0 50px 0;
 }
 
 .time-selector > .time-selector-form > .user-input {
-    display: block;
-    padding: 3px 0;
+  display: block;
+  padding: 3px 0;
 }
 
 .time-selector > .time-selector-form > #end-time-input {
-    padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .plan-card {
-    padding: 5px 0;
-    margin: 10px 0;
-    display: flex;
+  padding: 5px 0;
+  margin: 10px 0;
+  display: flex;
 }
 
 .plan-card > .name {
-    font-family: 'DMSans-Medium';
-    font-size: 1.5rem;
+  font-family: 'DMSans-Medium';
+  font-size: 1.5rem;
 }
 
 .plan-card > .plan-details {
-    margin-top: 5px;
-    width: 75%;
+  margin-top: 5px;
+  width: 75%;
 }
