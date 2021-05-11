@@ -256,5 +256,5 @@ button:hover {
 
 .plan-card > .plan-details {
     margin-top: 5px;
-    margin-right: 20px;
+    width: 75%;
 }
