@@ -24,7 +24,7 @@ class PlansPane extends Component {
   async deletePlan(timeStamp) {
     let response;
     try {
-      response = await axios.get('/clear-plans', {
+      response = await axios.get('/delete-plan', {
         params: {
           timeStamp: timeStamp
         }

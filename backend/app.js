@@ -9,6 +9,7 @@ const yelpRouter = require('./routes/yelp');
 const yelpBusinessRouter = require('./routes/yelp-business');
 const confirmPlanRouter = require('./routes/confirm-plan');
 const getPlansRouter = require('./routes/get-plans');
+const deletePlanRouter = require('./routes/delete-plan');
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use('/yelp', yelpRouter);
 app.use('/yelp-business', yelpBusinessRouter);
 app.use('/confirm-plan', confirmPlanRouter);
 app.use('/get-plans', getPlansRouter);
+app.use('/delete-plan', deletePlanRouter);
 
 // Catch 404 and forward to error handler
 app.use(function(_, _, next) {
