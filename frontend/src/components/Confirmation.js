@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { connect } from 'react-redux';
 import { resetSearch } from '../actions';
 
@@ -33,7 +32,7 @@ class Confirmation extends Component {
   }
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     place: state.selectedPlace.name,
     startTime: state.selectedTime.startTime,

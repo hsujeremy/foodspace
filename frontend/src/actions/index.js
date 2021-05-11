@@ -7,8 +7,6 @@ export const searchYelp = (params) => async dispatch => {
     params
   });
 
-  console.log(response);
-
   dispatch({
     type: 'YELP_SEARCHED',
     payload: response.data

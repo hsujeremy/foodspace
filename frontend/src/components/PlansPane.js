@@ -8,17 +8,35 @@ class PlansPane extends Component {
   constructor(props) {
     super(props);
     this.state = { plans: [] };
+    this.deletePlan = this.deletePlan.bind(this);
   }
 
   componentDidMount() {
     this._isMounted = true;
 
-    // Fetch from server-side Firestore
     axios.get('/get-plans')
       .then(response => {
         this.setState({ plans: response.data })
       })
       .catch(error => console.error(error));
+  }
+
+  async deletePlan(timeStamp) {
+    let response;
+    try {
+      response = await axios.get('/clear-plans', {
+        params: {
+          timeStamp: timeStamp
+        }
+      });
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+
+    this.setState({
+      plans: this.state.plans.filter(plan => plan.timeStamp !== timeStamp)
+    });
   }
 
   render() {
@@ -28,9 +46,8 @@ class PlansPane extends Component {
                     You don't have any current plans. Start a new search!
                   </div>;
     } else {
-      console.log(this.state.plans);
       plansList = this.state.plans.map(plan => {
-        return <PlanCard place={plan} />
+        return <PlanCard place={plan} deletePlan={this.deletePlan} />
       });
     }
 

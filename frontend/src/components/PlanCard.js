@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { resetSearch } from '../actions';
 
 let months = [
   'January',
@@ -16,6 +18,16 @@ let months = [
 ];
 
 export class PlanCard extends Component {
+  constructor(props) {
+    super(props);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleDelete(e) {
+    e.persist();
+    this.props.deletePlan(this.props.place.timeStamp);
+  }
+
   formatTime(timeStr) {
     let hrs = timeStr.split(':')[0];
     let min = timeStr.split(':')[1];
@@ -52,7 +64,12 @@ export class PlanCard extends Component {
         <div>
           {this.formatDate(this.props.place.timeStamp)} {startTime} to {endTime}
         </div>
+        <button onClick={this.handleDelete}>Delete</button>
       </div>
     );
   };
 };
+
+const mapStateToProps = (state) => {}
+
+export default connect(mapStateToProps, { resetSearch })(PlanCard);
