@@ -12,14 +12,11 @@ router.get('/', function(req, res) {
     sort_by: req.query.sort_by,
     limit: 5
   }).then(response => {
+    console.log(response.jsonBody.businesses);
     return res.json(response.jsonBody.businesses);
   }).catch(e => {
     console.log(e);
-    return res.json({
-      status: 500,
-      title: 'Error fetching data from Yelp Fusion API',
-      detail: e
-    });
+    return res.json(e.response);
   });
 });
 

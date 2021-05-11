@@ -5,19 +5,19 @@ const yelpSearchReducer = (yelpSearchResults, action) => {
   const defaultObj = {
     success: true,
     businesses: []
-  }
+  };
   if (action.type === 'YELP_SEARCHED') {
     if (action.payload.statusCode === 400) {
       return {
         success: false,
         businesses: []
       }
-    }
+    };
     return {
       success: true,
       businesses: action.payload
     }
-  }
+  };
   return defaultObj;
 };
 
