@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Emoji } from './Emoji';
 import { resetSearch } from '../actions';
 
 let months = [
@@ -60,11 +61,13 @@ export class PlanCard extends Component {
     let endTime = this.formatTime(this.props.place.endTime);
     return (
       <div className='plan-card'>
-        <div className='name'>{this.props.place.place}</div>
-        <div>
-          {this.formatDate(this.props.place.timeStamp)} {startTime} to {endTime}
+        <div className='plan-details'>
+          <div className='name'>{this.props.place.place}</div>
+          <div>
+            {this.formatDate(this.props.place.timeStamp)} {startTime} to {endTime}
+          </div>
         </div>
-        <button onClick={this.handleDelete}>Delete</button>
+        <button id='small' onClick={this.handleDelete}>Delete</button>
       </div>
     );
   };
