@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const yelp = require('yelp-fusion');
 require('dotenv').config();
-const client = yelp.client(process.env.API_KE);
+const client = yelp.client(process.env.API_KEY);
 
 router.get('/', function(req, res) {
   client.business(req.query.id).then(response => {
