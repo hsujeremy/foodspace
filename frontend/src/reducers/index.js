@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 
-// Make an request to Yelp endpoint in server to fetch search results object
 const yelpSearchReducer = (_, action) => {
   const defaultObj = {
     success: true,
@@ -21,13 +20,15 @@ const yelpSearchReducer = (_, action) => {
   return defaultObj;
 };
 
-// Initialize selectedPlace to null
-const selectedPlaceReducer = (_, action) => {
+const selectedPlaceReducer = (selectedPlace=null, action) => {
   console.log('from reducer', action)
   if (action.type === 'PLACE_SELECTED' && action.payload.statusCode !== 400) {
+    console.log('reducer returning', action.payload)
     return action.payload;
+  } else if (action.type === 'RESET') {
+    return null;
   }
-  return null;
+  return selectedPlace;
 };
 
 const selectedTimeReducer = (selectedTime=null, action) => {
