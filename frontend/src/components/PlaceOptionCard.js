@@ -12,7 +12,7 @@ function PlaceOptionCard(props) {
       rating
     } = props.place;
 
-    let ratingText = rating + ' Star' + (rating === 1 ? '' : 's');
+    let ratingText = `${rating} Star${rating === 1 ? '' : 's'}`;
 
     let categoriesText = '';
     for (let i = 0; i < categories.length; i++) {
@@ -21,9 +21,9 @@ function PlaceOptionCard(props) {
     categoriesText = categoriesText.replace(/,\s*$/, '');
 
     return (
-      <div className='place-option-card'>
-        <div className='place-metadata'>
-          <div className='restaurant-name'>{name}</div>
+      <div className="place-option-card">
+        <div className="place-metadata">
+          <div className="restaurant-name">{name}</div>
           <div>{price}</div>
           <div>{ratingText} · {categoriesText}</div>
           <div>{location.address1}</div>
@@ -31,7 +31,7 @@ function PlaceOptionCard(props) {
             {location.city}, {location.state}, {location.country}, {location.zip_code}
           </div>
         </div>
-        <div className='button' onClick={() => props.selectPlace(id)}>
+        <div className="button" onClick={() => props.selectPlace(id)}>
           Select
         </div>
       </div>

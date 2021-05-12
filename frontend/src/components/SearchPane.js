@@ -36,7 +36,7 @@ class SearchPane extends Component {
     }
 
     return (
-      <div className='search-pane'>
+      <div className="search-pane">
         <h2>{header}</h2>
         {content}
       </div>

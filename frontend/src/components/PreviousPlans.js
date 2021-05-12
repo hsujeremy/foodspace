@@ -27,7 +27,7 @@ class PreviousPlans extends Component {
 
   render() {
     return (
-      <div className='content'>
+      <div className="content">
         <h1>Previous Plans</h1>
         <ol>
           {this.state.plans.map(plan =>

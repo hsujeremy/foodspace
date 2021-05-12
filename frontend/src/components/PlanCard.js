@@ -59,14 +59,14 @@ export class PlanCard extends Component {
     let startTime = this.formatTime(this.props.place.startTime);
     let endTime = this.formatTime(this.props.place.endTime);
     return (
-      <div className='plan-card'>
-        <div className='plan-details'>
-          <div className='name'>{this.props.place.place}</div>
+      <div className="plan-card">
+        <div className="plan-details">
+          <div className="name">{this.props.place.place}</div>
           <div>
             {this.formatDate(this.props.place.timeStamp)} {startTime} to {endTime}
           </div>
         </div>
-        <button id='small' onClick={this.handleDelete}>Delete</button>
+        <button id="small" onClick={this.handleDelete}>Delete</button>
       </div>
     );
   };

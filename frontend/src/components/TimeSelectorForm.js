@@ -104,11 +104,13 @@ class TimeSelectorForm extends Component {
 
   render() {
     // Make sure users are using Chrome
-    let [currMonth, currDate, currYear] = (new Date()).toLocaleDateString().split('/');
+    let [currMonth, currDate, currYear] = (new Date()).toLocaleDateString()
+                                            .split('/');
     let bHoursTxt;
 
     if (this.props.hours === null) {
-      bHoursTxt = `${this.props.place} is currently not open. Check back again tomorrow!`;
+      bHoursTxt = `${this.props.place} is currently not open. ` +
+                  'Check back again tomorrow!';
     } else {
       let startStr = this.props.hours.start;
       let endStr = this.props.hours.end;
@@ -138,21 +140,21 @@ class TimeSelectorForm extends Component {
       }
 
       return (
-        <div className='time-selector'>
-          <div className='hour-status'>{bHoursTxt}</div>
-          <div className='time-selector-form'>
-            <label className='user-input'>
+        <div className="time-selector">
+          <div className="hour-status">{bHoursTxt}</div>
+          <div className="time-selector-form">
+            <label className="user-input">
               Start: <input
-                       type='time'
-                       name='userStart'
+                       type="time"
+                       name="userStart"
                        value={this.state.userStart}
                        onChange={this.handleChange}
                      />
             </label>
-            <label className='user-input' id='end-time-input'>
+            <label className="user-input" id="end-time-input">
               End: <input
-                     type='time'
-                     name='userEnd'
+                     type="time"
+                     name="userEnd"
                      value={this.state.userEnd}
                      onChange={this.handleChange}
                    />
@@ -165,8 +167,8 @@ class TimeSelectorForm extends Component {
     }
 
     return (
-      <div className='time-selector'>
-        <div className='hour-status'>{bHoursTxt}</div>
+      <div className="time-selector">
+        <div className="hour-status">{bHoursTxt}</div>
         <button onClick={() => this.props.resetSearch()}>New Search</button>
       </div>
     );
@@ -203,4 +205,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { resetSearch, selectTime })(TimeSelectorForm);
+export default connect(
+  mapStateToProps,
+  { resetSearch, selectTime }
+)(TimeSelectorForm);

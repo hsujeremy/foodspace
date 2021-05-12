@@ -49,27 +49,27 @@ class YelpSearchForm extends Component {
 
   render() {
     return (
-      <div className='yelp-search-form'>
-        <label className='user-input'>
+      <div className="yelp-search-form">
+        <label className="user-input">
           Term: <input
-                  type='text'
-                  name='term'
+                  type="text"
+                  name="term"
                   value={this.state.term}
                   onChange={this.handleChange}
                 />
         </label>
-        <label className='user-input'>
+        <label className="user-input">
           Location: <input
-                      type='text'
-                      name='location'
+                      type="text"
+                      name="location"
                       value={this.state.location}
                       onChange={this.handleChange}
                     />
         </label>
-        <label className='user-input'>
+        <label className="user-input">
           Price: <input
-                   type='text'
-                   name='price'
+                   type="text"
+                   name="price"
                    value={this.state.price}
                    onChange={this.handleChange}
                  />

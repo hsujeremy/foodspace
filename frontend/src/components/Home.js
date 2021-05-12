@@ -10,9 +10,9 @@ import { resetSearch } from '../actions';
 class Home extends Component {
   render() {
     return (
-      <div className='home-content'>
-        <h1 id='title' onClick={() => this.props.resetSearch()}>FoodSpace</h1>
-        <div className='double-pane'>
+      <div className="home-content">
+        <h1 id="title" onClick={() => this.props.resetSearch()}>FoodSpace</h1>
+        <div className="double-pane">
           <SearchPane />
           <PlansPane />
         </div>

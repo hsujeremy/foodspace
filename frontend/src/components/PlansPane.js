@@ -41,9 +41,9 @@ class PlansPane extends Component {
   render() {
     let plansList;
     if (this.state.plans.length === 0) {
-      plansList = <div>
+      plansList = (<div>
                     You don't have any current plans. Start a new search!
-                  </div>;
+                  </div>);
     } else {
       plansList = this.state.plans.map(plan => {
         return <PlanCard place={plan} deletePlan={this.deletePlan} />
@@ -51,7 +51,7 @@ class PlansPane extends Component {
     }
 
     return (
-      <div className='plans-pane'>
+      <div className="plans-pane">
         <h2>Your Plans</h2>
         {plansList}
       </div>
