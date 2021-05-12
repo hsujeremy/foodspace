@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Emoji } from './Emoji';
 import { resetSearch } from '../actions';
 
 let months = [

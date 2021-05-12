@@ -8,7 +8,7 @@ import '../styles.css';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-const NavBar = ({ resetSearch }) => {
+function NavBar({ resetSearch }) {
   return (
     <Router>
       <div>
@@ -32,7 +32,7 @@ const NavBar = ({ resetSearch }) => {
       </div>
     </Router>
   );
-};
+}
 
 const About = () => <h1>About</h1>;
 

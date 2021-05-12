@@ -44,7 +44,7 @@ class SearchPane extends Component {
   };
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     results: state.yelpSearchResults,
     selectedPlace: state.selectedPlace,

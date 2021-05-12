@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-
 import { searchYelp } from '../actions';
 import '../styles.css';
-
 import { connect } from 'react-redux';
 
 class YelpSearchForm extends Component {

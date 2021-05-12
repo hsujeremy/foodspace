@@ -1,13 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-
 import { selectPlace } from '../actions';
 
-// Displays each restaurant search result
-// Gives user the option to select (perhaps passes the hours of the day for
-// time?) - figure out later
-class PlaceOptionCard extends Component {
-  render() {
+function PlaceOptionCard(props) {
     const {
       categories,
       id,
@@ -15,11 +10,10 @@ class PlaceOptionCard extends Component {
       name,
       price,
       rating
-    } = this.props.place;
+    } = props.place;
 
     let ratingText = rating + ' Star' + (rating === 1 ? '' : 's');
 
-    // let categories = this.props.place.categories;
     let categoriesText = '';
     for (let i = 0; i < categories.length; i++) {
       categoriesText += categories[i].title + ', ';
@@ -37,12 +31,11 @@ class PlaceOptionCard extends Component {
             {location.city}, {location.state}, {location.country}, {location.zip_code}
           </div>
         </div>
-        <div className='button' onClick={() => this.props.selectPlace(id)}>
+        <div className='button' onClick={() => props.selectPlace(id)}>
           Select
         </div>
       </div>
     );
   }
-}
 
 export default connect(undefined, { selectPlace })(PlaceOptionCard);
